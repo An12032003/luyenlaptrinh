@@ -1,23 +1,96 @@
+"use client";
 import Link from "next/link";
-import { getAllPosts } from "@/lib/posts";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+
+type Post = {
+  slug: string;
+  title: string;
+  date: string;
+  excerpt: string;
+  cover: string;
+  tags: string[];
+  readingTime: number;
+};
 
 export default function BlogPage() {
-  const posts = getAllPosts();
+  const [posts, setPosts] = useState<Post[]>([]);
+
+  useEffect(() => {
+    fetch("/api/posts")
+      .then((res) => res.json())
+      .then((data) => setPosts(data));
+  }, []);
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-gray-100 dark:bg-gray-950 p-4 md:p-8">
-      <h1 className="text-2xl md:text-4xl font-bold text-purple-600 mb-6">📝 Blog của tôi</h1>
+    <div className="flex flex-col items-center min-h-screen bg-gray-100 dark:bg-gray-950">
+      {/* Banner đầu trang */}
+      <div className="w-full bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 py-16 px-4 flex flex-col items-center text-white text-center">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-3xl md:text-5xl font-extrabold drop-shadow-lg"
+        >
+          ✨ Blog Cá Nhân ✨
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-3 text-white/90 max-w-lg"
+        >
+          Nơi mình chia sẻ hành trình học tập, dự án và những điều thú vị trên con đường lập trình.
+        </motion.p>
+      </div>
 
-      <div className="max-w-2xl w-full flex flex-col gap-4">
-        {posts.map((post) => (
-          <Link
+      {/* Danh sách bài viết dạng grid card */}
+      <div className="max-w-5xl w-full px-4 md:px-8 py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 -mt-8 relative z-10">
+        {posts.map((post, i) => (
+          <motion.div
             key={post.slug}
-            href={`/blog/${post.slug}`}
-            className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-5 hover:shadow-xl transition-shadow"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: i * 0.1 }}
           >
-            <h2 className="text-lg md:text-xl font-bold text-gray-800 dark:text-gray-100">{post.title}</h2>
-            <p className="text-sm text-gray-500 mt-1">{post.date}</p>
-          </Link>
+            <Link
+              href={`/blog/${post.slug}`}
+              className="group block bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all hover:-translate-y-1"
+            >
+              <div className="relative w-full h-44 overflow-hidden">
+                <Image
+                  src={post.cover}
+                  alt={post.title}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+              <div className="p-4">
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {post.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-xs bg-purple-100 text-purple-600 dark:bg-purple-900 dark:text-purple-300 px-2 py-0.5 rounded-full"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <h2 className="font-bold text-gray-800 dark:text-gray-100 text-lg group-hover:text-purple-600 transition-colors">
+                  {post.title}
+                </h2>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 line-clamp-2">
+                  {post.excerpt}
+                </p>
+                <div className="flex justify-between items-center mt-3 text-xs text-gray-400">
+                  <span>{post.date}</span>
+                  <span>⏱ {post.readingTime} phút đọc</span>
+                </div>
+              </div>
+            </Link>
+          </motion.div>
         ))}
       </div>
     </div>
