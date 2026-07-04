@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({ name: "", message: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   async function handleSubmit(e: React.FormEvent) {
@@ -16,7 +16,7 @@ export default function Contact() {
       });
       if (res.ok) {
         setStatus("sent");
-        setForm({ name: "", email: "", message: "" });
+        setForm({ name: "", message: "" });
       } else {
         setStatus("error");
       }
@@ -36,15 +36,7 @@ export default function Contact() {
           required
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
-          className="border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
-        />
-        <input
-          type="email"
-          placeholder="Email của bạn"
-          required
-          value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-          className="border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+          className="border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-900 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
         />
         <textarea
           placeholder="Lời nhắn..."
@@ -52,7 +44,7 @@ export default function Contact() {
           rows={4}
           value={form.message}
           onChange={(e) => setForm({ ...form, message: e.target.value })}
-          className="border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+          className="border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-900 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
         />
 
         <button
