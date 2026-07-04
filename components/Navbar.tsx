@@ -17,6 +17,9 @@ export default function Navbar() {
         <Link href="/projects" className="text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-800 transition-colors">
           Dự án của tôi
         </Link>
+        <Link href="/blog" className="text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-800 transition-colors">
+          Blog
+        </Link>
       </div>
       {mounted && (
         <button
