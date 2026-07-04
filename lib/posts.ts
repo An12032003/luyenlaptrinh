@@ -4,7 +4,9 @@ import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
 
-const postsDirectory = path.join(process.cwd(), "posts");
+function getDir(category: string) {
+  return path.join(process.cwd(), "posts", category);
+}
 
 function estimateReadingTime(content: string) {
   const wordsPerMinute = 200;
@@ -12,12 +14,14 @@ function estimateReadingTime(content: string) {
   return Math.max(1, Math.ceil(words / wordsPerMinute));
 }
 
-export function getAllPosts() {
-  const fileNames = fs.readdirSync(postsDirectory);
+export function getAllPosts(category: string) {
+  const dir = getDir(category);
+  if (!fs.existsSync(dir)) return [];
+  const fileNames = fs.readdirSync(dir).filter((f) => f.endsWith(".md"));
   return fileNames
     .map((fileName) => {
       const slug = fileName.replace(/\.md$/, "");
-      const fullPath = path.join(postsDirectory, fileName);
+      const fullPath = path.join(dir, fileName);
       const fileContents = fs.readFileSync(fullPath, "utf8");
       const { data, content } = matter(fileContents);
       return {
@@ -26,25 +30,25 @@ export function getAllPosts() {
         date: data.date,
         excerpt: data.excerpt || "",
         cover: data.cover || "/avtar.jpg",
-        tags: data.tags || [],
+        tags: (data.tags || []) as string[],
         readingTime: estimateReadingTime(content),
       };
     })
     .sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
-export async function getPostBySlug(slug: string) {
-  const fullPath = path.join(postsDirectory, `${slug}.md`);
+export async function getPostBySlug(category: string, slug: string) {
+  const dir = getDir(category);
+  const fullPath = path.join(dir, `${slug}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
   const processedContent = await remark().use(html).process(content);
-  const contentHtml = processedContent.toString();
   return {
     title: data.title,
     date: data.date,
     cover: data.cover || "/avtar.jpg",
     tags: (data.tags || []) as string[],
     readingTime: estimateReadingTime(content),
-    contentHtml,
+    contentHtml: processedContent.toString(),
   };
 }

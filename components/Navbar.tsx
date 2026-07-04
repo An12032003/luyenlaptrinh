@@ -14,11 +14,17 @@ export default function Navbar() {
         <Link href="/" className="text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-800 transition-colors">
           Trang chủ
         </Link>
-        <Link href="/projects" className="text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-800 transition-colors">
-          Dự án của tôi
+        <Link href="/gia-dinh" className="text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-800 transition-colors">
+          Gia Đình Của Tôi
+        </Link>
+        <Link href="/hanh-trinh-on-goi" className="text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-800 transition-colors">
+          Hành Trình Ơn Gọi
         </Link>
         <Link href="/blog" className="text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-800 transition-colors">
-          Blog
+          A2OnTheMic
+        </Link>
+        <Link href="/scvg-thanh-linh" className="text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-800 transition-colors">
+          SVCG Thánh Linh
         </Link>
       </div>
       {mounted && (
