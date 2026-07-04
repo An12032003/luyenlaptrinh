@@ -43,7 +43,7 @@ export async function getPostBySlug(slug: string) {
     title: data.title,
     date: data.date,
     cover: data.cover || "/avtar.jpg",
-    tags: data.tags || [],
+    tags: (data.tags || []) as string[],
     readingTime: estimateReadingTime(content),
     contentHtml,
   };

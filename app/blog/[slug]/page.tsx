@@ -10,7 +10,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     <div className="flex flex-col items-center min-h-screen bg-gray-100 dark:bg-gray-950">
       {/* Ảnh bìa lớn đầu bài viết */}
       <div className="relative w-full h-64 md:h-96">
-        <Image src={post.cover} alt={post.title} fill className="object-cover" />
+        <Image src={post.cover} alt={post.title} fill sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-6 md:p-10">
           <div className="flex flex-wrap gap-2 mb-3">
             {post.tags.map((tag) => (
