@@ -20,6 +20,7 @@ export default function Hero() {
           alt="Ảnh đại diện"
           width={180}
           height={180}
+          priority
           className="rounded-full border-4 border-white shadow-2xl object-cover w-32 h-32 md:w-44 md:h-44"
         />
       </motion.div>
