@@ -2,7 +2,7 @@
 title: "Hành trình học lập trình của tôi"
 date: "2026-07-04"
 excerpt: "Từ những dòng HTML đầu tiên đến khi tự tay dựng được website cá nhân bằng Next.js."
-cover: "/blog/post2.jpg"
+cover: "/blog/post2.JPG"
 tags: ["Học tập", "Next.js"]
 ---
 
