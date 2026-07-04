@@ -40,7 +40,7 @@ export default function Hero() {
         transition={{ duration: 0.6, delay: 0.4 }}
         className="text-base md:text-xl mt-2 text-white/90 text-center"
       >
-        ✨ Người đang theo đuổi đam mê lập trình ✨
+        ✨ Hành trình tìm hiểu ơn gọi ✨
       </motion.p>
 
       <motion.div
