@@ -50,5 +50,6 @@ export async function getPostBySlug(category: string, slug: string) {
     tags: (data.tags || []) as string[],
     readingTime: estimateReadingTime(content),
     contentHtml: processedContent.toString(),
+    gallery: (data.gallery || []) as string[],
   };
 }

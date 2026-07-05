@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getPostBySlug } from "@/lib/posts";
-
+import ReadingProgress from "@/components/ReadingProgress";
+import ShareButtons from "@/components/ShareButtons";
+import Gallery from "@/components/Gallery";
 export default async function PostDetail({
   category, slug, basePath, backLabel,
 }: { category: string; slug: string; basePath: string; backLabel: string }) {
@@ -9,6 +11,7 @@ export default async function PostDetail({
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-100 dark:bg-gray-950">
+      <ReadingProgress />
       <div className="relative w-full h-64 md:h-96">
         <Image src={post.cover} alt={post.title} fill sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-6 md:p-10">
@@ -25,6 +28,8 @@ export default async function PostDetail({
         <Link href={basePath} className="text-purple-600 dark:text-purple-400 text-sm font-semibold hover:underline">← {backLabel}</Link>
         <div className="prose dark:prose-invert max-w-none mt-6 prose-headings:text-purple-600 prose-a:text-pink-500"
           dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+        <Gallery images={post.gallery} /> 
+        <ShareButtons title={post.title} />
       </div>
     </div>
   );

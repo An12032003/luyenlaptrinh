@@ -3,7 +3,8 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import ParticleBackground from "@/components/ParticleBackground";
-
+import Link from "next/link";
+import TypingText from "@/components/TypingText";
 export default function Hero() {
   const [showFull, setShowFull] = useState(false);
 
@@ -52,14 +53,14 @@ export default function Hero() {
           Nguyễn Hồng Ân
         </motion.h1>
 
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-base md:text-xl mt-2 text-white/90 text-center italic"
         >
-          Let It All Work Out
-        </motion.p>
+          <TypingText text="Let It All Work Out" speed={90} />
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0 }}
@@ -67,9 +68,9 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="flex gap-3 mt-6"
         >
-          <a href="#about" className="bg-white text-purple-600 font-semibold px-5 py-2 rounded-full shadow-md hover:scale-105 transition-transform">
+          <Link href="/ve-toi" className="bg-white text-purple-600 font-semibold px-5 py-2 rounded-full shadow-md hover:scale-105 transition-transform">
             Về tôi
-          </a>
+          </Link>
           <a href="#contact" className="bg-white/20 border border-white text-white font-semibold px-5 py-2 rounded-full hover:bg-white/30 transition-colors">
             Liên hệ
           </a>
