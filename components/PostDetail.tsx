@@ -1,13 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getPostBySlug } from "@/lib/posts";
-import ReadingProgress from "@/components/ReadingProgress";
-import ShareButtons from "@/components/ShareButtons";
+import { getPostBySlug, getRelatedPosts } from "@/lib/posts";
 import Gallery from "@/components/Gallery";
+import ShareButtons from "@/components/ShareButtons";
+import ReadingProgress from "@/components/ReadingProgress";
+import RelatedPosts from "@/components/RelatedPosts";
 export default async function PostDetail({
   category, slug, basePath, backLabel,
 }: { category: string; slug: string; basePath: string; backLabel: string }) {
   const post = await getPostBySlug(category, slug);
+  const related = getRelatedPosts(category, slug);
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-100 dark:bg-gray-950">
@@ -24,12 +26,18 @@ export default async function PostDetail({
           <p className="text-white/80 text-sm mt-2">{post.date} · ⏱ {post.readingTime} phút đọc</p>
         </div>
       </div>
+
       <div className="max-w-2xl w-full px-4 md:px-8 py-10">
-        <Link href={basePath} className="text-purple-600 dark:text-purple-400 text-sm font-semibold hover:underline">← {backLabel}</Link>
+        <Link href={basePath} className="text-purple-600 dark:text-purple-400 text-sm font-semibold hover:underline">
+          ← {backLabel}
+        </Link>
+
         <div className="prose dark:prose-invert max-w-none mt-6 prose-headings:text-purple-600 prose-a:text-pink-500"
           dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
-        <Gallery images={post.gallery} /> 
+
+        <Gallery images={post.gallery} />
         <ShareButtons title={post.title} />
+        <RelatedPosts posts={related} basePath={basePath} />
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import PostGrid from "@/components/PostGrid";
+import { getAllPosts } from "@/lib/posts";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,9 +13,10 @@ export const metadata: Metadata = {
 };
 
 export default function A2OnTheMicPage() {
+  const posts = getAllPosts("a2onthemic");
   return (
     <PostGrid
-      category="a2onthemic"
+      posts={posts}
       basePath="/a2onthemic"
       heroTitle="✨ A2OnTheMic ✨"
       heroSubtitle="Nơi mình chia sẻ hành trình học tập, dự án và những điều thú vị trên con đường lập trình."

@@ -6,13 +6,14 @@ import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
 const links = [
-  { href: "/", label: "Trang chủ" },
   { href: "/ve-toi", label: "Về tôi" },
   { href: "/a2onthemic", label: "A2OnTheMic" },
   { href: "/gia-dinh", label: "Gia Đình Của Tôi" },
   { href: "/hanh-trinh-on-goi", label: "Hành Trình Ơn Gọi" },
   { href: "/scvg-thanh-linh", label: "SVCG Thánh Linh" },
   { href: "/tim-kiem", label: "🔍 Tìm kiếm" },
+  { href: "/luu-tru", label: "🗂️ Lưu trữ" },
+  { href: "/album", label: "📷 Album" },
 ];
 
 export default function Navbar() {
@@ -23,7 +24,7 @@ export default function Navbar() {
   useEffect(() => setMounted(true), []);
 
   return (
-    <nav className="w-full bg-white dark:bg-gray-900 shadow-md py-4 px-4 md:px-8 flex justify-between items-center sticky top-0 z-40">
+    <nav className="w-full bg-white dark:bg-gray-900 shadow-md py-4 px-4 md:px-8 flex items-center gap-8 sticky top-0 z-40">
       {/* Tên/logo bên trái */}
       <Link href="/" className="font-extrabold text-purple-600 dark:text-purple-400">
         Nguyễn Hồng Ân

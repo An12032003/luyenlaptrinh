@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import ThemeProvider from "@/components/ThemeProvider";
 import ScrollToTop from "@/components/ScrollToTop";
 import PageTransition from "@/components/PageTransition";
+import BackgroundMusic from "@/components/BackgroundMusic";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -41,11 +42,12 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col">  
         <ThemeProvider>
           <Navbar />
           <PageTransition>{children}</PageTransition>
           <ScrollToTop />
+          <BackgroundMusic />
         </ThemeProvider>
       </body>
     </html>

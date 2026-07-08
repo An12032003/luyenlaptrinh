@@ -53,3 +53,28 @@ export async function getPostBySlug(category: string, slug: string) {
     gallery: (data.gallery || []) as string[],
   };
 }
+export function getRelatedPosts(category: string, currentSlug: string, limit = 3) {
+  const all = getAllPosts(category).filter((p) => p.slug !== currentSlug);
+  return all.slice(0, limit);
+}
+export function getAllGalleryImages() {
+  const categories = ["a2onthemic", "gia-dinh", "hanh-trinh-on-goi", "scvg-thanh-linh"];
+  const images: { src: string; postTitle: string; slug: string; category: string }[] = [];
+
+  categories.forEach((cat) => {
+    const dir = getDir(cat);
+    if (!fs.existsSync(dir)) return;
+    const fileNames = fs.readdirSync(dir).filter((f) => f.endsWith(".md"));
+    fileNames.forEach((fileName) => {
+      const fullPath = path.join(dir, fileName);
+      const fileContents = fs.readFileSync(fullPath, "utf8");
+      const { data } = matter(fileContents);
+      const gallery = (data.gallery || []) as string[];
+      gallery.forEach((src) => {
+        images.push({ src, postTitle: data.title, slug: fileName.replace(/\.md$/, ""), category: cat });
+      });
+    });
+  });
+
+  return images;
+}
